@@ -109,12 +109,12 @@ export class AuthService {
 
     if (!user) throw new UnauthorizedException(`認証データが存在しません`);
 
-    const resUser: ResponseUserType = {
+    const resUser = {
       id: user.id,
-      name: user.name,
+      // name: user.name,
       email: user.email,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
+      // createdAt: user.createdAt,
+      // updatedAt: user.updatedAt,
     };
 
     const payload: JwtPayload = {
