@@ -4,10 +4,16 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import { counterSlice } from "../features/counter/counterSlice"
 import { quotesApiSlice } from "../features/quotes/quotesApiSlice"
 import { loginSlice } from "../features/login/loginSlice"
+import { taskSlice } from "../features/task/taskSlice"
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(counterSlice, quotesApiSlice, loginSlice)
+const rootReducer = combineSlices(
+  counterSlice,
+  quotesApiSlice,
+  loginSlice,
+  taskSlice,
+)
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>
 
