@@ -40,21 +40,25 @@ export const fetchAsyncRegister = createAsyncThunk<
 })
 
 // loginしているユーザーのidとユーザーネーム取得
-export const fetchAsyncProf = createAsyncThunk<
-  any, // 成功時の返り値の型（適切な型を設定するのが理想）
-  void // 引数なしの場合は void を指定
->("login/get", async (_, { rejectWithValue }) => {
-  try {
-    const res = await axios.get(`${apiUrl}/authentication/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    return res.data
-  } catch (error) {
-    return rejectWithValue("ユーザー情報の取得に失敗しました")
-  }
-})
+export const fetchAsyncProf = createAsyncThunk<any>(
+  "login/get",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(
+        `${apiUrl}/authentication`,
+        {}, // bodyは空
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      return res.data
+    } catch (error) {
+      return rejectWithValue("ユーザー情報の取得に失敗しました")
+    }
+  },
+)
 
 export const loginSlice = createAppSlice({
   name: "login",

@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import { type RootState } from "../../app/store"
 
-const apiUrl = "http://localhost:8000/api/todo"
+const apiUrl = "http://localhost:8080/api/todo"
 const token = localStorage.localJWT
 
 export type taskType = {
@@ -20,21 +20,24 @@ export const fetchAsyncGet = createAsyncThunk("task/get", async () => {
   return res.data
 })
 
-export const fetchAsyncCreate = createAsyncThunk("task/post", async task => {
-  const res = await axios.post(apiUrl, task, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return res.data
-})
+export const fetchAsyncCreate = createAsyncThunk<taskType, taskType>(
+  "task/post",
+  async task => {
+    const res = await axios.post(apiUrl, task, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return res.data
+  },
+)
 
 export const fetchAsyncUpdate = createAsyncThunk<
   taskType, // 成功時に返ってくるデータの型
   taskType // 引数として受け取る task の型
 >("task/put", async task => {
-  const res = await axios.patch(`${apiUrl}${task.id}/`, task, {
+  const res = await axios.patch(`${apiUrl}/${task.id}/`, task, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -43,15 +46,18 @@ export const fetchAsyncUpdate = createAsyncThunk<
   return res.data
 })
 
-export const fetchAsyncDelete = createAsyncThunk("task/delete", async id => {
-  await axios.delete(`${apiUrl}${id}/`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return id
-})
+export const fetchAsyncDelete = createAsyncThunk<number, number>(
+  "task/delete",
+  async id => {
+    await axios.delete(`${apiUrl}/${id}/`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return id
+  },
+)
 
 export const taskSlice = createSlice({
   name: "task",

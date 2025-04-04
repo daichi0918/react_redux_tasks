@@ -1,66 +1,29 @@
 import "./App.css"
-import { Counter } from "./features/counter/Counter"
-import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import styles from "./App.module.css"
+import { FaSignInAlt } from "react-icons/fa"
+import TaskInput from "./features/task/TaskInput"
+import TaskList from "./features/task/TaskList"
+import TaskDetails from "./features/task/TaskDetail"
+import Header from "./features/login/Header"
 
 const App = () => {
+  const Logout = () => {
+    localStorage.removeItem("localJWT")
+    window.location.href = "/"
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Quotes />
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://reselect.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Reselect
-          </a>
-        </span>
-      </header>
+    <div className={styles.containerTasks}>
+      <div className={styles.appTasks}>
+        <button onClick={Logout} className={styles.signBtn}>
+          <FaSignInAlt />
+        </button>
+        <Header />
+        <TaskInput />
+        <TaskList />
+      </div>
+      <div className={styles.appDetails}>
+        <TaskDetails />
+      </div>
     </div>
   )
 }
