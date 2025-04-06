@@ -8,8 +8,8 @@ const token = localStorage.localJWT
 
 /* 非同期系の関数はsliceの外で定義しておくとのこと */
 export const fetchAsyncLogin = createAsyncThunk<
-  any, // 成功時の返り値の型（適切な型があれば変更してください）
-  { email: string; password: string } // 引数の型を指定
+  any,
+  { email: string; password: string } 
 >("login/post", async (auth, { rejectWithValue }) => {
   try {
     const res = await axios.post(`${apiUrl}/sign_in`, auth, {
@@ -25,7 +25,7 @@ export const fetchAsyncLogin = createAsyncThunk<
 
 export const fetchAsyncRegister = createAsyncThunk<
   any, // 成功時の返り値の型（適切な型が分かれば変更）
-  { name: string; email: string; password: string } // 引数の型を指定
+  { name: string; email: string; password: string }
 >("login/register", async (auth, { rejectWithValue }) => {
   try {
     const res = await axios.post(`${apiUrl}/sign_up`, auth, {
